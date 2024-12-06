@@ -2,11 +2,14 @@
   "name": "brakirazvodquizl",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://vitaliynaumenko.github.io/brakiravod",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d .next"
   },
   "dependencies": {
     "next": "15.0.3",
