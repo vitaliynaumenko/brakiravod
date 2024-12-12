@@ -59,7 +59,7 @@ button{
 }
 
 #__next{
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 .react-tel-input{
   height: 100%!important;

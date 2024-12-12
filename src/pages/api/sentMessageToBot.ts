@@ -5,7 +5,7 @@ export default async function handlerSentFormToBot(req: NextApiRequest, res: Nex
     if (req.method === "POST") {
         const {children, city, divorce, location, maino, name} = req.body;
 
-        const chatId = '409337155'
+        const chatId = '-1002451060564'
         const botToken = '7899154192:AAEhnksDL2X2RNuSI9GDKjMcQjc0v8yvFno'
         const sendMessageUrl = `https://api.telegram.org/bot${botToken}/sendMessage`
         const message = `
@@ -40,5 +40,8 @@ export default async function handlerSentFormToBot(req: NextApiRequest, res: Nex
              const  error = err as Error;
             res.status(500).json({success: false, message:  error.message})
         }
+    }else {
+        res.setHeader('Allow', ['POST']);
+        res.status(405).end(`Метод ${req.method} не дозволений`);
     }
 }
