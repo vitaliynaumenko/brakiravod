@@ -37,7 +37,8 @@ export default async function handlerSentFormToBot(req: NextApiRequest, res: Nex
                 res.status(500).json({success: false, error: errorData});
             }
         } catch (err) {
-            res.status(500).json({success: false, message: err.message})
+             const  error = err as Error;
+            res.status(500).json({success: false, message:  error.message})
         }
     }
 }
