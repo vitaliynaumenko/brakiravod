@@ -61,3 +61,14 @@ button{
 #__next{
   overflow: hidden;
 }
+.react-tel-input{
+  height: 100%!important;
+}
+.react-tel-input .flag-dropdown{
+  background-color: transparent!important;
+  border: none!important;
+  border-radius: var(--border-radius)!important;
+}
+.react-tel-input .selected-flag:hover, .react-tel-input .selected-flag:focus{
+  background-color: transparent!important;
+}

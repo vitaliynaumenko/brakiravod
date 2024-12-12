@@ -35,11 +35,12 @@ export const questions = [
     {
         id: 5,
         question: 'Вкажіть з якого ви міста або населеного пункту',
-        options: [{value: '', label: 'Місто', name: 'city'}]
+        options: [{value: '', label: 'Місто', name: 'city', placeholder: 'Наприклад: Київ'}]
     },
     {
         id: 6,
-        question: 'Наш спеціаліст вже почав розраховувати подання на розірвання шлюбу',
+        question: '25 років досвіду та понад 2000 успішних справ',
+        desc:"Залиште заявку зараз і ми допоможемо зробити перший крок до нового життя!",
         options: [
             {value: '', label: 'Ваше ім\'я', name: 'name'},
             {value: 'tel', label: 'Телефон', name: 'tel'}

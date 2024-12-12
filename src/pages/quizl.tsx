@@ -1,7 +1,8 @@
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import PhoneInput from "react-phone-input-2";
 import {questions} from "@/data/data";
 import Link from "next/link";
+
 import "react-phone-input-2/lib/style.css";
 import styles from "@/styles/Quizl.module.css"
 
@@ -14,6 +15,7 @@ export default function Quizl() {
     const [formState, setFormState] = useState<FormStateType>({});
     const [answeredQuestions, setAnsweredQuestions] = useState<number>(0);
     const [country, setCountry] = useState<string>('');
+    const [progressBar, setProgressBar] = useState<number | null>(null);
     // const [disable, setDisable] = useState(true);
 
 
@@ -24,12 +26,19 @@ export default function Quizl() {
             [name]: value
 
         }))
-
     }
 
+
     const handleNextQuestion = () => {
+        const currentQuestion = answeredQuestions + 1
+        const stepWidth = (currentQuestion / (questions.length - 1)) * 100
+        console.log('stepWidth', stepWidth);
+        console.log('currentQuestion', currentQuestion);
+        console.log('stepWidth', answeredQuestions);
+        console.log('stepWidth', questions.length - 1);
         if (answeredQuestions < questions.length - 1) {
             setAnsweredQuestions(answeredQuestions + 1)
+            setProgressBar(stepWidth)
         }
     }
     const handlePrevQuestion = () => {
@@ -71,13 +80,42 @@ export default function Quizl() {
     //     setDisable(!isOptionsSelected)
     // }, [formState, answeredQuestions])
 
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault()
+        try {
+
+            const response = await fetch('/api/sentMessageToBot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formState),
+            })
+
+            if (!response.ok) {
+                throw new Error(`Error submitting form: ${response.statusText}`)
+            }
+
+        } catch (e) {
+            console.error(`Error submitting form: ${e}`)
+        }
+
+
+    }
+
     return (
-        <form action="/" className={styles.quizl__form}>
-            <div className={styles.processBar}></div>
+        <form action="/" className={styles.quizl__form} onSubmit={handleSubmit}>
+            <div className={styles.processBar} style={{width: `${progressBar}%`}}></div>
             <div className={styles.question__container}>
                 <h2 className={styles.quizl__title}>{`${questions[answeredQuestions].question} ${answeredQuestions === 1 ? switchGender(formState.divorce) : ''}`}</h2>
                 <div
-                    className={styles.quizl__desc}>{answeredQuestions === 0 ? '(вкажіть один з варіантів відповіді)' : '(оберіть варіант відповіді)'} </div>
+                    className={styles.quizl__desc}>{
+                    (answeredQuestions === 0)
+                        ? '(вкажіть один з варіантів відповіді)'
+                        : (questions[answeredQuestions]?.desc || '(оберіть варіант відповіді)')
+                }
+                </div>
                 <div className={styles.row}>
                     {
                         questions[answeredQuestions].options.map((option, index: number) => (
@@ -90,8 +128,9 @@ export default function Quizl() {
                                                 <input
                                                     type={'text'}
                                                     name={option.name}
-                                                    value={option.value}
+                                                    value={formState[option.name]}
                                                     checked={formState[option.name] === option.value}
+                                                    placeholder={option?.placeholder || option.label}
                                                     onChange={handelSetForm}
                                                 />
                                             </div>
@@ -114,22 +153,32 @@ export default function Quizl() {
                         ))}
 
                 </div>
-            </div>
-            <div className={styles.navigation}>
-                <button type='button' className={styles.navigationBtn} onClick={handlePrevQuestion}>prev
-                </button>
-                <button type='button' className={styles.navigationBtn} onClick={handleNextQuestion}>next</button>
-            </div>
-            {
-                answeredQuestions === questions.length - 1 && (
-                    <label>
-                        <input type="checkbox"/>
-                        <span className={styles.prived__policy}> Я погоджуюсь з <Link href={'/policy'} target='_blank'
-                                                                                      className={styles.policy__link}>політикою конфіденційності та правилами
+                {
+                    answeredQuestions === questions.length - 1 && (
+                        <label className={styles.labelPolicy}>
+                            <input type="checkbox"/>
+                            <span className={styles.prived__policy}> Я погоджуюсь з <Link href={'/policy'} target='_blank'
+                                                                                          className={styles.policy__link}>політикою конфіденційності та правилами
                         використання *</Link></span>
-                    </label>
-                )
-            }
+                        </label>
+                    )
+                }
+
+                {
+                    answeredQuestions === questions.length - 1 ? (
+                        <button type='submit' className={styles.btnSubmit}>Замовити
+                        </button>
+                    ) : (
+                        <div className={styles.navigation}>
+                            <button type='button' className={styles.navigationBtn} onClick={handlePrevQuestion}>prev
+                            </button>
+                            <button type='button' className={styles.navigationBtn} onClick={handleNextQuestion}>next
+                            </button>
+                        </div>
+                    )
+                }
+            </div>
+
         </form>
     )
 }
