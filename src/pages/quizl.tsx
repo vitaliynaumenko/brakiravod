@@ -130,7 +130,7 @@ export default function Quizl() {
                                                     name={option.name}
                                                     value={formState[option.name]}
                                                     checked={formState[option.name] === option.value}
-                                                    placeholder={option?.placeholder || option.label}
+                                                    placeholder={'placeholder' in option ? option.placeholder: option.label}
                                                     onChange={handelSetForm}
                                                 />
                                             </div>
