@@ -3,7 +3,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 
 export default async function handlerSentFormToBot(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "POST") {
-        const {children, city, divorce, location, maino, name} = req.body;
+        const {children, city, divorce, location, maino, name, tel} = req.body;
 
         const chatId = '-1002451060564'
         const botToken = '7899154192:AAEhnksDL2X2RNuSI9GDKjMcQjc0v8yvFno'
@@ -11,6 +11,7 @@ export default async function handlerSentFormToBot(req: NextApiRequest, res: Nex
         const message = `
         *Нова заявка на сайті:*
         Імя: ${name}
+        Номер: ${tel}
         Розлучення: ${divorce}
         Діти: ${children}
         Місце знаходження: ${location}

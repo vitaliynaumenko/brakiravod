@@ -16,14 +16,15 @@ export default function Quizl() {
     const [answeredQuestions, setAnsweredQuestions] = useState<number>(0);
     const [country, setCountry] = useState<string>('');
     const [progressBar, setProgressBar] = useState<number | null>(null);
+    const [isChecked, setIsCheked] = useState<boolean>(false);
     // const [disable, setDisable] = useState(true);
 
 
-    const handelSetForm = (e: ChangeEvent<HTMLInputElement>) => {
+    const handelSetForm = (e: ChangeEvent<HTMLInputElement>, inputName?: string) => {
         const {name, value} = e.target
         setFormState(() => ({
             ...formState,
-            [name]: value
+            [inputName ?? name]: value
 
         }))
     }
@@ -80,6 +81,11 @@ export default function Quizl() {
     //     setDisable(!isOptionsSelected)
     // }, [formState, answeredQuestions])
 
+    const onCheckedPrived = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value)
+        setIsCheked(e.target.checked)
+    }
+
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
@@ -121,8 +127,10 @@ export default function Quizl() {
                         questions[answeredQuestions].options.map((option, index: number) => (
                             <>
                                 {
-                                    option.name === 'tel' ? <div className={styles.inputTextWrapp}><PhoneInput
-                                        country={country.toLowerCase()}/></div> : (
+                                    option.name === 'tel' ? <div className={styles.inputTextWrapp}>
+                                        <PhoneInput
+                                            country={country.toLowerCase()}
+                                            onChange={(value, data, event) => handelSetForm(event, 'tel')}/></div> : (
                                         option.name === 'city' || option.name === 'name' ?
                                             <div className={styles.inputTextWrapp}>
                                                 <input
@@ -130,7 +138,7 @@ export default function Quizl() {
                                                     name={option.name}
                                                     value={formState[option.name]}
                                                     checked={formState[option.name] === option.value}
-                                                    placeholder={'placeholder' in option ? option.placeholder: option.label}
+                                                    placeholder={'placeholder' in option ? option.placeholder : option.label}
                                                     onChange={handelSetForm}
                                                 />
                                             </div>
@@ -156,7 +164,7 @@ export default function Quizl() {
                 {
                     answeredQuestions === questions.length - 1 && (
                         <label className={styles.labelPolicy}>
-                            <input type="checkbox"/>
+                            <input type="checkbox" onChange={onCheckedPrived}/>
                             <span className={styles.prived__policy}> Я погоджуюсь з <Link href={'/policy'} target='_blank'
                                                                                           className={styles.policy__link}>політикою конфіденційності та правилами
                         використання *</Link></span>
@@ -165,18 +173,16 @@ export default function Quizl() {
                 }
 
                 {
-                    answeredQuestions === questions.length - 1 ? (
-                        <button type='submit' className={styles.btnSubmit}>Замовити
-                        </button>
-                    ) : (
-                        <div className={styles.navigation}>
-                            <button type='button' className={styles.navigationBtn} onClick={handlePrevQuestion}>prev
-                            </button>
-                            <button type='button' className={styles.navigationBtn} onClick={handleNextQuestion}>next
-                            </button>
-                        </div>
+                    answeredQuestions === questions.length - 1 && (
+                        <button type='submit' disabled={!isChecked} className={styles.btnSubmit}>Замовити</button>
                     )
                 }
+                <div className={styles.navigation}>
+                    <button type='button' className={styles.navigationBtn} onClick={handlePrevQuestion}>prev
+                    </button>
+                    <button type='button' className={styles.navigationBtn} onClick={handleNextQuestion}>next
+                    </button>
+                </div>
             </div>
 
         </form>

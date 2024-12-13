@@ -120,6 +120,7 @@
     align-items: center;
     width: 100%;
     height: calc(100vh - 50px);
+    padding: 0 10px;
 }
 
 .quizl__title {
@@ -156,4 +157,22 @@
 
 .policy__link {
     color: var(--dark-blue-black);
+}
+
+@media (max-width: 768px){
+    .navigation{
+        bottom: 20px;
+    }
+}
+
+@media (max-width: 610px){
+    .row{
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 490px){
+    .navigation{
+        right: 50px;
+    }
 }
