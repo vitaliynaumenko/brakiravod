@@ -91,10 +91,11 @@
 }
 
 .navigation{
+    margin-top: auto;
     display: flex;
-    position: absolute;
-    bottom: 85px;
-    right: 85px;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 0 85px 85px 0;
     gap: 10px;
 }
 .quizl__form .navigationBtn {
@@ -103,7 +104,16 @@
     border: 1px solid var(--dark-blue-black);
     background-color: transparent;
     cursor: pointer;
+    transition: all .3s linear;
 }
+.quizl__form .navigationBtn:hover {
+    background-color: var(--dark-blue-black);
+}
+.quizl__form .navigationBtn:hover > svg path  {
+    fill: var(--color-white);
+}
+
+
 .btnSubmit{
     width: 305px;
     height: 55px;
@@ -119,8 +129,15 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: calc(100vh - 50px);
+    height: 100vh;
     padding: 0 10px;
+}
+.containerWrapp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
 }
 
 .quizl__title {
@@ -161,7 +178,7 @@
 
 @media (max-width: 768px){
     .navigation{
-        bottom: 20px;
+       padding-bottom: 20px;
     }
 }
 
@@ -173,6 +190,6 @@
 
 @media (max-width: 490px){
     .navigation{
-        right: 50px;
+        padding-right: 50px;
     }
 }
