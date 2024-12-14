@@ -120,6 +120,7 @@
     color: var(--color-white);
     border-radius: var(--border-radius);
     background-color: var(--dark-blue-black);
+    margin-bottom: 10px;
     cursor: pointer;
 }
 
