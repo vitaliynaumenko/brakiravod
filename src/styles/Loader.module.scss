@@ -1,0 +1,104 @@
+$blue: #1f145d;
+
+// scaling... any units
+$width: 100px;
+
+// demo-specific
+.showbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+// end demo-specific
+
+.loader {
+  position: relative;
+  margin: 0 auto;
+  width: $width;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/13060/nb-logo-symbol-pos.png);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+// Objects
+.circular {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.head, .chin, .smile {
+  stroke-linecap: round;
+  stroke: $blue;
+}
+
+.head {
+  stroke-dasharray: 60.3, 200;
+  stroke-dashoffset: 185;
+}
+
+.chin {
+  stroke-dasharray: 60.3, 200;
+  stroke-dashoffset: -5;
+}
+
+.smile {
+  stroke-dasharray: 27, 200;
+  stroke-dashoffset: -4;
+}
+
+// Movement
+.circular {
+  animation: rotate 2s linear infinite;
+  transform-origin: center;
+}
+
+.head, .chin {
+  animation: rotate 1.5s linear infinite;
+  transform-origin: center;
+}
+
+.smile {
+  animation: rotate-double 0.7s linear infinite;
+  transform-origin: center;
+}
+
+// Animations
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-double {
+  100% {
+    transform: rotate(-720deg);
+  }
+}
+
+@keyframes smilespin {
+  0%    {stroke-dasharray: 1, 200;stroke-dashoffset: -4;}
+  25%   {stroke-dasharray: 27, 200;stroke-dashoffset: -4px;}
+  50%   {stroke-dasharray: 27, 200;stroke-dashoffset: -4px;}
+  75%   {stroke-dasharray: 27, 200;stroke-dashoffset: -4px; transform: rotate(720deg);}
+  100%  {stroke-dasharray: 1, 200;stroke-dashoffset: -4px;}
+}
