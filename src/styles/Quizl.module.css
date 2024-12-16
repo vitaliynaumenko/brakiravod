@@ -1,6 +1,6 @@
 .quizl__form {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(rgba(254, 250, 242, 0.8), rgba(254, 250, 242, 0.8)),
     url(../../public/advokat.jpeg) no-repeat center center;
     background-size: cover;
@@ -131,7 +131,7 @@
     border-radius: var(--border-radius);
     background-color: var(--dark-blue-black);
     margin-bottom: 16px;
-    margin-left:auto;
+    margin-left: auto;
     margin-right: auto;
     cursor: pointer;
 }
