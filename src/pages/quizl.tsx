@@ -111,14 +111,11 @@ export default function Quizl() {
                 body: JSON.stringify(formData),
             })
 
-
-
             if (!response.ok) {
                 throw new Error(`Error submitting form: ${response.statusText}`)
             }
-            if (response.ok){
-               await router.push('/thankYouPage')
-            }
+
+            await router.push('/thankYouPage')
 
         } catch (e) {
             console.error(`Error submitting form: ${e}`)
@@ -192,8 +189,7 @@ export default function Quizl() {
                                         <input type="checkbox" onChange={onCheckedPrived}/>
                                         <span className={styles.prived__policy}> Я погоджуюсь з <Link href={'/policy'}
                                                                                                       target='_blank'
-                                                                                                      className={styles.policy__link}>політикою конфіденційності та правилами
-                        використання *</Link></span>
+                                                                                                      className={styles.policy__link}>політикою конфіденційності та правилами використання *</Link></span>
                                     </label>
                                     <button type='submit' disabled={!isChecked} className={styles.btnSubmit}>Замовити
                                     </button>
@@ -211,7 +207,8 @@ export default function Quizl() {
 
 
                     <div className={styles.navigation}>
-                        <button type='button' className={styles.navigationBtn} onClick={handlePrevQuestion}>
+                        <button type='button' disabled={answeredQuestions === 0} className={styles.navigationBtn}
+                                onClick={handlePrevQuestion}>
                             <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
