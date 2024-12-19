@@ -146,7 +146,7 @@ export default function Quizl() {
                         <div className={styles.row}>
                             {
                                 questions[answeredQuestions].options.map((option, index: number) => (
-                                    <>
+                                    <div key={index}>
                                         {
                                             option.name === 'tel' ? <div className={styles.inputTextWrapp}>
                                                 <PhoneInput
@@ -179,7 +179,7 @@ export default function Quizl() {
                                                         <span> {option.label}</span>
                                                     </label>
                                             )}
-                                    </>
+                                    </div>
                                 ))}
                         </div>
                         {
