@@ -13,10 +13,6 @@ export default function Home() {
                       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-
-            <div
-                className={`${styles.page}`}
-            >
                 <main className={styles.quiz}>
                     <div className={styles.block__img}></div>
                     <div className={styles.block__info}>
@@ -37,11 +33,9 @@ export default function Home() {
                             <Link href='/quizl' className={styles.link}>Розпочати</Link>
                             <span className={styles.text__terms}>Terms of use and Privacy policy</span>
                         </div>
-
                     </div>
 
                 </main>
-            </div>
         </>
     );
 }

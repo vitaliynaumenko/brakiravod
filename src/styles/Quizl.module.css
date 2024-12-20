@@ -1,6 +1,7 @@
 .quizl__form {
     position: relative;
     min-height: 100vh;
+    padding-top: 5px;
     background: linear-gradient(rgba(254, 250, 242, 0.8), rgba(254, 250, 242, 0.8)),
     url(../../public/advokat.jpeg) no-repeat center center;
     background-size: cover;

@@ -20,7 +20,7 @@ export default function Quizl() {
     const [country, setCountry] = useState<string>('');
     const [progressBar, setProgressBar] = useState<number | null>(null);
     const [isChecked, setIsCheked] = useState<boolean>(false);
-    // const [disable, setDisable] = useState(true);
+    const [disable, setDisable] = useState(true);
     const [loading, setLoading] = useState<boolean>(false);
 
     const router = useRouter()
@@ -36,7 +36,7 @@ export default function Quizl() {
 
     }
 
-    const calculationWith = (currentQuestion:number) => {
+    const calculationWith = (currentQuestion: number) => {
         const stepWidth = (currentQuestion / (questions.length - 1)) * 100
         setProgressBar(stepWidth)
     }
@@ -89,6 +89,10 @@ export default function Quizl() {
             const isOptionsSelected = currentOptions.some(name => formState[name])
             if (isOptionsSelected) {
                 handleNextQuestion()
+            }
+            if (!isOptionsSelected) {
+
+                setDisable(!isOptionsSelected)
             }
         }
 
@@ -226,7 +230,7 @@ export default function Quizl() {
                                             fill="#101B23"/>
                                     </svg>
                                 </button>
-                                <button type='button' className={styles.navigationBtn}
+                                <button type='button' disabled={disable} className={styles.navigationBtn}
                                         onClick={handleNextQuestion}>
                                     <svg width="15" height="16" viewBox="0 0 15 16" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
