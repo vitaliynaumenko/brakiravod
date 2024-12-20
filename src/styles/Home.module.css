@@ -90,7 +90,7 @@
         line-height: 3rem;
     }
     .block__info p, .block__info ul{
-        font-size: 1.1rem;
+        font-size: 1rem;
         line-height: 1.1;
     }
 }
@@ -103,7 +103,17 @@
     .block__img {
         height: 30vh;
     }
-
+    .block__info {
+        padding: 15px;
+    }
+    .block__info h1 {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        margin-bottom: 15px;
+    }
+    .block__info p, .block__info ul{
+        margin-bottom: 15px;
+    }
     .block__info .link {
         margin-left: auto;
         margin-right: auto;

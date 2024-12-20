@@ -84,15 +84,15 @@ export default function Quizl() {
     useEffect(() => {
         if (answeredQuestions < questions.length - 1) {
 
-            const currentOptions = questions[answeredQuestions].options.map(option => option.name)
-
+            const currentOptions = questions[answeredQuestions].options.filter(option => option.type !== 'text')
+                .map(option => option.name)
             const isOptionsSelected = currentOptions.some(name => formState[name])
+
             if (isOptionsSelected) {
                 handleNextQuestion()
             }
-            if (!isOptionsSelected) {
-
-                setDisable(!isOptionsSelected)
+            if (formState.city?.length) {
+                setDisable(false)
             }
         }
 

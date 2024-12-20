@@ -258,6 +258,13 @@
 }
 
 @media (max-width: 768px) {
+    .quizl__title{
+        font-size: 1.4rem;
+    }
+    .quizl__desc {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
     .navigation {
         padding-bottom: 20px;
     }
